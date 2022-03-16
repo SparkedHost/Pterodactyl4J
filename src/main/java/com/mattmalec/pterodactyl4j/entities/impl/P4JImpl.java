@@ -31,6 +31,7 @@ public class P4JImpl implements P4J {
 
     private final String token;
     private final String applicationUrl;
+    private final String userAgent;
     private final Requester requester;
     private final OkHttpClient httpClient;
     private final ExecutorService callbackPool;
@@ -39,10 +40,11 @@ public class P4JImpl implements P4J {
     private final ExecutorService supplierPool;
     private final OkHttpClient webSocketClient;
 
-    public P4JImpl(String applicationUrl, String token, OkHttpClient httpClient, ExecutorService callbackPool, ExecutorService actionPool,
+    public P4JImpl(String applicationUrl, String token, String userAgent, OkHttpClient httpClient, ExecutorService callbackPool, ExecutorService actionPool,
                    ScheduledExecutorService rateLimitPool, ExecutorService supplierPool, OkHttpClient webSocketClient) {
         this.token = token;
         this.applicationUrl = applicationUrl;
+        this.userAgent = userAgent;
         this.httpClient = httpClient;
         this.callbackPool = callbackPool;
         this.actionPool = actionPool;
@@ -65,6 +67,11 @@ public class P4JImpl implements P4J {
     @Override
     public String getApplicationUrl() {
         return this.applicationUrl;
+    }
+
+    @Override
+    public String getUserAgent() {
+        return this.userAgent;
     }
 
     @Override

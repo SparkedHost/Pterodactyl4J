@@ -33,6 +33,7 @@ public class PteroBuilder {
 
     private String applicationUrl;
     private String token;
+    private String userAgent;
 
     private OkHttpClient httpClient = null;
     private ExecutorService actionPool = null;
@@ -41,9 +42,10 @@ public class PteroBuilder {
     private ExecutorService supplierPool = null;
     private OkHttpClient webSocketClient = null;
 
-    private PteroBuilder(String applicationUrl, String token) {
+    private PteroBuilder(String applicationUrl, String token, String userAgent) {
         this.applicationUrl = applicationUrl;
         this.token = token;
+        this.userAgent = userAgent;
     }
 
     @Deprecated
@@ -67,8 +69,8 @@ public class PteroBuilder {
      * @return A new {@link com.mattmalec.pterodactyl4j.application.entities.PteroApplication} instance
      *
      */
-    public static PteroApplication createApplication(String url, String token) {
-        return new PteroBuilder(url, token).buildApplication();
+    public static PteroApplication createApplication(String url, String token, String userAgent) {
+        return new PteroBuilder(url, token, userAgent).buildApplication();
     }
 
     /**
@@ -83,11 +85,18 @@ public class PteroBuilder {
      * @param  token
      *         The Client API key
      *
+     * @param userAgent
+     *        The user agent string
+     *
      * @return A new {@link com.mattmalec.pterodactyl4j.client.entities.PteroClient} instance
      *
      */
+    public static PteroClient createClient(String url, String token, String userAgent) {
+        return new PteroBuilder(url, token, userAgent).buildClient();
+    }
+
     public static PteroClient createClient(String url, String token) {
-        return new PteroBuilder(url, token).buildClient();
+        return new PteroBuilder(url, token, P4JInfo.DEFAULT_USER_AGENT).buildClient();
     }
 
     /**
@@ -99,10 +108,17 @@ public class PteroBuilder {
      * @param  token
      *         The API key
      *
+     * @param userAgent
+     *        The user agent string
+     *
      * @return The new PteroBuilder
      **/
+    public static PteroBuilder create(String url, String token, String userAgent) {
+        return new PteroBuilder(url, token, userAgent);
+    }
+
     public static PteroBuilder create(String url, String token) {
-        return new PteroBuilder(url, token);
+        return new PteroBuilder(url, token, P4JInfo.DEFAULT_USER_AGENT);
     }
 
     /**
@@ -128,6 +144,19 @@ public class PteroBuilder {
      */
     public PteroBuilder setToken(String token) {
         this.token = token;
+        return this;
+    }
+
+    /**
+     * Sets the user agent string that will be used when P4J makes a Request
+     *
+     * @param userAgent
+     *        The user agent string
+     *
+     * @return The PteroBuilder instance. Useful for chaining.
+     */
+    public PteroBuilder setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
         return this;
     }
 
@@ -258,9 +287,19 @@ public class PteroBuilder {
         return this.token;
     }
 
+    /**
+     * The user agent string that is currently being used with P4J.
+     *
+     * @return The user agent string
+     */
+    public String getUserAgent() {
+        return this.userAgent;
+    }
+
     private P4J build() {
         Checks.notBlank(token, "API Key");
         Checks.notBlank(applicationUrl, "Application URL");
+        Checks.notBlank(userAgent, "User Agent");
         if (httpClient == null)
             this.httpClient = new OkHttpClient();
         if (callbackPool == null)
@@ -273,7 +312,7 @@ public class PteroBuilder {
             this.supplierPool = Executors.newFixedThreadPool(3, new NamedThreadFactory("Supplier"));
         if (webSocketClient == null)
             this.webSocketClient = new OkHttpClient();
-        return new P4JImpl(this.applicationUrl, this.token, this.httpClient, this.callbackPool, this.actionPool,
+        return new P4JImpl(this.applicationUrl, this.token, this.userAgent, this.httpClient, this.callbackPool, this.actionPool,
                 this.rateLimitPool, this.supplierPool, this.webSocketClient);
     }
 

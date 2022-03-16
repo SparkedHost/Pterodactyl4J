@@ -45,7 +45,7 @@ public class Requester {
 
     private static final String PTERODACTYL_API_PREFIX = "%s/api/";
 
-    public static final String USER_AGENT = "Pterodactyl4J (" + P4JInfo.VERSION + ")";
+    public static String USER_AGENT = "";
 
     private final RateLimiter rateLimiter;
     private final OkHttpClient client;
@@ -54,6 +54,7 @@ public class Requester {
         this.api = api;
         this.rateLimiter = new RateLimiter(this, api);
         this.client = api.getHttpClient();
+        USER_AGENT = api.getUserAgent();
     }
 
     public <T> void request(Request<T> request) {

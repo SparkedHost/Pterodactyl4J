@@ -28,4 +28,5 @@ public class P4JInfo {
     public static final String VERSION = VERSION_MAJOR.startsWith("@") ? "DEV" :
             String.format("%s.%s_%s", VERSION_MAJOR, VERSION_MINOR, VERSION_BUILD);
 
+    public static final String DEFAULT_USER_AGENT = "Pterodactyl4J (" + VERSION + ")";
 }

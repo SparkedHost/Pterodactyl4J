@@ -29,6 +29,7 @@ public interface P4J {
 	String getToken();
 	Requester getRequester();
 	String getApplicationUrl();
+	String getUserAgent();
 	OkHttpClient getHttpClient();
 	ExecutorService getCallbackPool();
 	ExecutorService getActionPool();
