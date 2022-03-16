@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java'
     id 'maven'
+    id 'maven-publish'
 }
 
 sourceCompatibility = targetCompatibility = 1.8
@@ -19,15 +20,15 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.32'
 }
 
-uploadArchives {
+publishing {
     repositories {
-        mavenDeployer {
-            repository(url: "https://repo.mattmalec.com/repository/releases") {
-                authentication(userName: System.getenv("jenkinsUsername"), password: System.getenv("jenkinsPassword"))
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/octocat/hello-world"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
-            pom.version = version
-            pom.artifactId = "Pterodactyl4J"
-            pom.groupId = "com.mattmalec"
         }
     }
 }
