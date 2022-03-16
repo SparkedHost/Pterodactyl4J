@@ -11,7 +11,7 @@
 [ ![build][] ][jenkins]
 [ ![discord-shield][] ][discord-invite]
 # Pterodactyl4J
-a
+
 P4J strives to provide a clean and full wrapping of the Pterodactyl REST API for Java.
 <br />P4J fully wraps the application and the client API for the Pterodactyl panel.
 <br />**NOTE**: This is an unofficial wrapper. Do not expect the Pterodactyl community to provide support for this wrapper.
