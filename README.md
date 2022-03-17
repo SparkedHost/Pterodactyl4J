@@ -208,7 +208,7 @@ Be sure to replace the **VERSION** key below with the one of the versions shown 
 **Maven**
 ```xml
 <dependency>
-    <groupId>com.mattmalec</groupId>
+    <groupId>com.sparkedhost</groupId>
     <artifactId>Pterodactyl4J</artifactId>
     <version>VERSION</version>
 </dependency>
@@ -224,7 +224,7 @@ Be sure to replace the **VERSION** key below with the one of the versions shown 
 **Gradle**
 ```gradle
 dependencies {
-    implementation 'com.mattmalec:Pterodactyl4J:VERSION'
+    implementation 'com.sparkedhost:Pterodactyl4J:VERSION'
 }
 
 repositories {

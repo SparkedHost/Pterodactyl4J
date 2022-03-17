@@ -33,11 +33,12 @@ publishing {
     }
 
     publications {
-        gpr(MavenPublication) {
-            groupId = 'com.sparkedhost'
-            artifactId = 'pterodactyl4j'
+        mavenJar(MavenPublication) {
+            from components.java
+            groupId = "com.sparkedhost"
+            artifactId = "pterodactyl4j"
             version = version
-            artifact jar
+            artifact sourcesJar
         }
     }
 }
@@ -64,20 +65,20 @@ javadoc {
         }
     }
 
-    exclude("com/mattmalec/pterodactyl4j/requests",
+    exclude("com/sparkedhost/pterodactyl4j/requests",
 
-            "com/mattmalec/pterodactyl4j/utils/Checks.java",
-            "com/mattmalec/pterodactyl4j/utils/ExceptionUtils.java",
-            "com/mattmalec/pterodactyl4j/utils/LockUtils.java",
-            "com/mattmalec/pterodactyl4j/utils/NamedThreadFactory.java",
+            "com/sparkedhost/pterodactyl4j/utils/Checks.java",
+            "com/sparkedhost/pterodactyl4j/utils/ExceptionUtils.java",
+            "com/sparkedhost/pterodactyl4j/utils/LockUtils.java",
+            "com/sparkedhost/pterodactyl4j/utils/NamedThreadFactory.java",
 
-            "com/mattmalec/pterodactyl4j/entities/impl",
-            "com/mattmalec/pterodactyl4j/application/entities/impl",
-            "com/mattmalec/pterodactyl4j/client/entities/impl",
+            "com/sparkedhost/pterodactyl4j/entities/impl",
+            "com/sparkedhost/pterodactyl4j/application/entities/impl",
+            "com/sparkedhost/pterodactyl4j/client/entities/impl",
 
-            "com/mattmalec/pterodactyl4j/client/ws/handle",
-            "com/mattmalec/pterodactyl4j/client/ws/WebSocketClient.java",
-            "com/mattmalec/pterodactyl4j/client/ws/WebSocketAction.java")
+            "com/sparkedhost/pterodactyl4j/client/ws/handle",
+            "com/sparkedhost/pterodactyl4j/client/ws/WebSocketClient.java",
+            "com/sparkedhost/pterodactyl4j/client/ws/WebSocketAction.java")
 }
 
 task sourcesForRelease(type: Copy) {
@@ -136,6 +137,6 @@ class Version {
     def build = System.getenv('BUILD_NUMBER') ?: 'DEV'
 
     String toString() {
-        return "$major.${minor}_$build"
+        return "$major.${minor}-$build"
     }
 }
