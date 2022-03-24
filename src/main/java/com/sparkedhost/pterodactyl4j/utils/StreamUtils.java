@@ -14,17 +14,21 @@
  *    limitations under the License.
  */
 
-package com.sparkedhost.pterodactyl4j.application.entities;
+package com.sparkedhost.pterodactyl4j.utils;
 
-import com.sparkedhost.pterodactyl4j.entities.Allocation;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import java.util.Optional;
+public class StreamUtils {
 
-public interface ApplicationAllocation extends Allocation {
+    public static <T> Collector<T, ?, List<T>> toUnmodifiableList() {
+        return Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList);
+    }
 
-	boolean isAssigned();
-
-	Optional<ApplicationServer> getServer();
-	Optional<Node> getNode();
+    public static boolean compareString(String a, String b, boolean caseSensitive) {
+        return caseSensitive ? a.equals(b) : a.equalsIgnoreCase(b);
+    }
 
 }

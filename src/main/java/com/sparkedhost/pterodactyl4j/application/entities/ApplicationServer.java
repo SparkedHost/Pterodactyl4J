@@ -70,16 +70,16 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The owner of the ApplicationServer
 	 *
-	 * @return {@link Relationed Relationed} - Type {@link ApplicationUser ApplicationUser}
+	 * @return {@link PteroAction PteroAction} - Type {@link ApplicationUser ApplicationUser}
 	 */
-	Relationed<ApplicationUser> getOwner();
+	PteroAction<ApplicationUser> retrieveOwner();
 
 	/**
 	 * The {@link ApplicationUser owner} id of the ApplicationServer
 	 *
 	 * @return Long containing the owner id
 	 *
-	 * @see ApplicationServer#getOwner()
+	 * @see ApplicationServer#retrieveOwner()
 	 */
 	long getOwnerIdLong();
 
@@ -88,7 +88,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return Never-null String containing the owner id
 	 *
-	 * @see ApplicationServer#getOwner()
+	 * @see ApplicationServer#retrieveOwner()
 	 */
 	default String getOwnerId() {
 		return Long.toUnsignedString(getOwnerIdLong());
@@ -97,16 +97,16 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Node the ApplicationServer is running on
 	 *
-	 * @return {@link Relationed Relationed} - Type {@link Node Node}
+	 * @return {@link PteroAction PteroAction} - Type {@link Node Node}
 	 */
-	Relationed<Node> getNode();
+	PteroAction<Node> retrieveNode();
 
 	/**
 	 * The id of the {@link Node Node} the ApplicationServer is running on
 	 *
 	 * @return Long containing the node id
 	 *
-	 * @see ApplicationServer#getNode()
+	 * @see ApplicationServer#retrieveNode()
 	 */
 	long getNodeIdLong();
 
@@ -115,7 +115,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return Never-null String containing the node id
 	 *
-	 * @see ApplicationServer#getNode()
+	 * @see ApplicationServer#retrieveNode()
 	 */
 	default String getNodeId() {
 		return Long.toUnsignedString(getNodeIdLong());
@@ -133,14 +133,14 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return {@link Relationed Relationed} - Type {@link ApplicationAllocation Allocation}
 	 */
-	Relationed<ApplicationAllocation> getDefaultAllocation();
+	PteroAction<ApplicationAllocation> retrieveDefaultAllocation();
 
 	/**
 	 * The id of the main {@link ApplicationAllocation Allocation} for the ApplicationServer
 	 *
 	 * @return Long containing the main allocation id
 	 *
-	 * @see ApplicationServer#getDefaultAllocation()
+	 * @see ApplicationServer#retrieveDefaultAllocation()
 	 */
 	long getDefaultAllocationIdLong();
 
@@ -149,7 +149,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return Never-null String containing the main allocation id
 	 *
-	 * @see ApplicationServer#getDefaultAllocation()
+	 * @see ApplicationServer#retrieveDefaultAllocation()
 	 */
 	default String getDefaultAllocationId() {
 		return Long.toUnsignedString(getDefaultAllocationIdLong());
@@ -158,16 +158,16 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Nest the ApplicationServer is using
 	 *
-	 * @return {@link Relationed Relationed} - Type {@link Nest Nest}
+	 * @return {@link PteroAction PteroAction} - Type {@link Nest Nest}
 	 */
-	Relationed<Nest> getNest();
+	PteroAction<Nest> retrieveNest();
 
 	/**
 	 * The id of the {@link Nest Nest} for the ApplicationServer
 	 *
 	 * @return Long containing the nest id
 	 *
-	 * @see ApplicationServer#getNest()
+	 * @see ApplicationServer#retrieveNest()
 	 */
 	long getNestIdLong();
 
@@ -176,7 +176,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return Never-null String containing the nest id
 	 *
-	 * @see ApplicationServer#getNest()
+	 * @see ApplicationServer#retrieveNest()
 	 */
 	default String getNestId() {
 		return Long.toUnsignedString(getNestIdLong());
@@ -185,16 +185,16 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Egg the ApplicationServer is using
 	 *
-	 * @return {@link Relationed Relationed} - Type {@link ApplicationEgg ApplicationEgg}
+	 * @return {@link PteroAction PteroAction} - Type {@link ApplicationEgg ApplicationEgg}
 	 */
-	Relationed<ApplicationEgg> getEgg();
+	PteroAction<ApplicationEgg> retrieveEgg();
 
 	/**
 	 * The id of the {@link ApplicationEgg ApplicationEgg} for the ApplicationServer
 	 *
 	 * @return Long containing the egg id
 	 *
-	 * @see ApplicationServer#getEgg()
+	 * @see ApplicationServer#retrieveEgg()
 	 */
 	long getEggIdLong();
 
@@ -203,7 +203,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return Never-null String containing the egg id
 	 *
-	 * @see ApplicationServer#getNest()
+	 * @see ApplicationServer#retrieveNest()
 	 */
 	default String getEggId() {
 		return Long.toUnsignedString(getEggIdLong());
@@ -269,10 +269,11 @@ public interface ApplicationServer extends Server, ISnowflake {
 
 	/**
 	 * The Databases belonging to the ApplicationServer
+	 * <br>This requires an <b>Application API key</b> with the <b>Databases</b> permission with <b>Read</b> access.
 	 *
-	 * @return {@link Relationed Relationed} - Type {@link java.util.List List} of {@link ApplicationDatabase ApplicationDatabases}
+	 * @return {@link PteroAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationDatabase ApplicationDatabases}
 	 */
-	Relationed<List<ApplicationDatabase>> getDatabases();
+	PteroAction<List<ApplicationDatabase>> retrieveDatabases();
 
 	/**
 	 * Retrieves an individual ApplicationDatabase represented by the provided id from Pterodactyl instance

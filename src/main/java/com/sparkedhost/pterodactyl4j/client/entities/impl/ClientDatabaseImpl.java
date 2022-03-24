@@ -20,7 +20,7 @@ import com.sparkedhost.pterodactyl4j.PteroAction;
 import com.sparkedhost.pterodactyl4j.client.entities.ClientDatabase;
 import com.sparkedhost.pterodactyl4j.client.entities.ClientServer;
 import com.sparkedhost.pterodactyl4j.entities.impl.DatabasePasswordImpl;
-import com.sparkedhost.pterodactyl4j.utils.Relationed;
+import com.sparkedhost.pterodactyl4j.requests.CompletedPteroAction;
 import com.sparkedhost.pterodactyl4j.entities.Database;
 import org.json.JSONObject;
 
@@ -30,11 +30,14 @@ public class ClientDatabaseImpl implements ClientDatabase {
 
     private final JSONObject json;
     private final JSONObject relationships;
+
+    private final PteroClientImpl impl;
     private final ClientServer server;
 
-    public ClientDatabaseImpl(JSONObject json, ClientServer server) {
+    public ClientDatabaseImpl(JSONObject json, PteroClientImpl impl, ClientServer server) {
         this.json = json.getJSONObject("attributes");
         this.relationships = json.getJSONObject("attributes").optJSONObject("relationships");
+        this.impl = impl;
         this.server = server;
     }
 
@@ -69,20 +72,10 @@ public class ClientDatabaseImpl implements ClientDatabase {
     }
 
     @Override
-    public Relationed<String> getPassword() {
-        return new Relationed<String>() {
-            @Override
-            public PteroAction<String> retrieve() {
-                return server.retrieveDatabaseById(getId())
-                        .map(Optional::get).map(ClientDatabase::getPassword).map(Relationed::get).map(Optional::get);
-            }
-
-            @Override
-            public Optional<String> get() {
-                if (!json.has("relationships")) return Optional.empty();
-                return Optional.of(new DatabasePasswordImpl(relationships.getJSONObject("password")).getPassword());
-            }
-        };
+    public PteroAction<String> retrievePassword() {
+        if (!json.has("relationships"))
+            return server.retrieveDatabaseById(getId()).map(Optional::get).flatMap(ClientDatabase::retrievePassword);
+        return new CompletedPteroAction<>(impl.getP4J(), new DatabasePasswordImpl(relationships.getJSONObject("password")).getPassword());
     }
 
     @Override

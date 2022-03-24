@@ -19,9 +19,8 @@ package com.sparkedhost.pterodactyl4j.client.entities;
 import com.sparkedhost.pterodactyl4j.PowerAction;
 import com.sparkedhost.pterodactyl4j.PteroAction;
 import com.sparkedhost.pterodactyl4j.client.managers.*;
-import com.sparkedhost.pterodactyl4j.client.managers.*;
 import com.sparkedhost.pterodactyl4j.entities.Server;
-import com.sparkedhost.pterodactyl4j.utils.Relationed;
+import com.sparkedhost.pterodactyl4j.requests.action.PaginationAction;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,13 +67,13 @@ public interface ClientServer extends Server {
 	WebSocketBuilder getWebSocketBuilder();
 
 	List<ClientSubuser> getSubusers();
-	Relationed<ClientSubuser> getSubuser(UUID uuid);
-	default Relationed<ClientSubuser> getSubuser(String uuid) {
-		return getSubuser(UUID.fromString(uuid));
+	PteroAction<ClientSubuser> retrieveSubuser(UUID uuid);
+	default PteroAction<ClientSubuser> retrieveSubuser(String uuid) {
+		return retrieveSubuser(UUID.fromString(uuid));
 	}
 	SubuserManager getSubuserManager();
 
-	PteroAction<List<Backup>> retrieveBackups();
+	PaginationAction<Backup> retrieveBackups();
 	PteroAction<Backup> retrieveBackup(UUID uuid);
 	default PteroAction<Backup> retrieveBackup(String uuid) {
 		return retrieveBackup(UUID.fromString(uuid));

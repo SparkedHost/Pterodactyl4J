@@ -14,17 +14,11 @@
  *    limitations under the License.
  */
 
-package com.sparkedhost.pterodactyl4j.application.entities;
+package com.sparkedhost.pterodactyl4j.utils;
 
-import com.sparkedhost.pterodactyl4j.entities.Allocation;
+@FunctionalInterface
+public interface Procedure<T> {
 
-import java.util.Optional;
-
-public interface ApplicationAllocation extends Allocation {
-
-	boolean isAssigned();
-
-	Optional<ApplicationServer> getServer();
-	Optional<Node> getNode();
+    boolean execute(T value);
 
 }

@@ -29,7 +29,7 @@ public class WebSocketBuilder {
     private final PteroClientImpl api;
     private final ClientServer server;
 
-    private boolean useFreshServer;
+    private boolean freshServer;
 
     public WebSocketBuilder(PteroClientImpl api, ClientServer server) {
         this.api = api;
@@ -97,8 +97,8 @@ public class WebSocketBuilder {
      *
      * @return The {@link WebSocketBuilder WebSocketBuilder} instance. Useful for chaining.
      */
-    public WebSocketBuilder setEnableFreshServer(boolean enable) {
-        this.useFreshServer = enable;
+    public WebSocketBuilder freshServer(boolean enable) {
+        this.freshServer = enable;
         return this;
     }
 
@@ -111,7 +111,7 @@ public class WebSocketBuilder {
      * @return A {@link WebSocketManager WebSocketManager} that is ready for use
      */
     public WebSocketManager build() {
-        return new WebSocketManager(api, server, eventManager, useFreshServer);
+        return new WebSocketManager(api, server, eventManager, freshServer);
     }
 
 

@@ -55,13 +55,13 @@ public abstract class Event {
      * The {@link ClientServer} instance corresponding to this Event
      * <p><b>Note:</b> This is the server at the time of WebSocket creation,
      * if you need an updated version (like if the install state is changed), use
-     * {@link Event#retrieveServer()} or set {@link WebSocketBuilder#setEnableFreshServer(boolean) WebSocketBuilder.setEnableFreshServer()}
+     * {@link Event#retrieveServer()} or set {@link WebSocketBuilder#freshServer(boolean)} WebSocketBuilder.freshServer(enable)}
      * to true
      *
      * @return The corresponding {@link ClientServer} instance
      *
      * @see Event#retrieveServer()
-     * @see WebSocketBuilder#setEnableFreshServer(boolean) WebSocketBuilder.setEnableFreshServer()
+     * @see WebSocketBuilder#freshServer(boolean) WebSocketBuilder.freshServer(enable)
      */
     public ClientServer getServer() {
         return server;
